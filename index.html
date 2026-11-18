@@ -1,0 +1,411 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RENTORA - Car Rental Management Platform </title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body class="theme-electric">
+
+    <!-- Top Announcement Ticker Bar -->
+    <div class="top-announcement">
+        <div class="announcement-track">
+            <span>30 CARS. COUNTLESS JOURNEY. FROM CITY STREETS TO SCENIC ROUTES.</span>
+            <span>•</span>
+            <span>ROLE-BASED ACCESS CONTROL & CRUD MANAGEMENT PLATFORM</span>
+            <span>•</span>
+            <span>30 CARS. COUNTLESS JOURNEY. FROM CITY STREETS TO SCENIC ROUTES.</span>
+        </div>
+    </div>
+
+    <!-- Navigation Header -->
+    <header class="navbar">
+        <div class="nav-container">
+            <div class="logo-wrap" onclick="showSection('home')">
+                <div class="logo">RENTORA</div>
+                <span class="tagline">MANAGEMENT PLATFORM</span>
+            </div>
+            
+            <nav class="nav-links">
+                <a href="#home" class="nav-link active" onclick="showSection('home', this)">Home</a>
+                
+                <!-- Explore Dropdown -->
+                <div class="dropdown">
+                    <a href="#explore" class="nav-link" onclick="showSection('explore', this)">Explore cars <i class="fa-solid fa-chevron-down drop-icon"></i></a>
+                    <div class="dropdown-menu">
+                        <a href="#explore" onclick="selectCategory('sedan')">Sedan</a>
+                        <a href="#explore" onclick="selectCategory('suv')">SUV</a>
+                        <a href="#explore" onclick="selectCategory('luxury')">Luxury</a>
+                        <a href="#explore" onclick="selectCategory('electric')">Electric</a>
+                        <a href="#explore" onclick="selectCategory('hatchback')">Hatchback</a>
+                        <a href="#explore" onclick="selectCategory('offroad')">Off-road</a>
+                        <a href="#explore" onclick="selectCategory('sports')">Sports</a>
+                        <a href="#explore" onclick="selectCategory('convertible')">Convertible</a>
+                    </div>
+                </div>
+
+                <a href="#about" class="nav-link" onclick="showSection('about', this)">About us</a>
+                <a href="#offers" class="nav-link" onclick="showSection('offers', this)">Offers</a>
+                <a href="#contact" class="nav-link" onclick="showSection('contact', this)">Contact</a>
+                
+                <!-- Theme Switcher Dropdown -->
+                <div class="dropdown">
+                    <a href="#" class="nav-link"><i class="fa-solid fa-palette"></i> Theme <i class="fa-solid fa-chevron-down drop-icon"></i></a>
+                    <div class="dropdown-menu">
+                        <a href="#" onclick="changeTheme('theme-electric')">⚡ Electric Blue</a>
+                        <a href="#" onclick="changeTheme('theme-emerald')">🌲 Emerald Dark</a>
+                        <a href="#" onclick="changeTheme('theme-slate')">🖤 Slate Minimal</a>
+                        <a href="#" onclick="changeTheme('theme-gold')">🏆 Warm Gold</a>
+                    </div>
+                </div>
+            </nav>
+
+            <div class="nav-action">
+                <span id="userStatusDisplay" class="user-status-tag"></span>
+                <button class="btn-dash" onclick="toggleDashboard()">
+                    <span id="dashBtnText">Portal Dashboard</span> <i class="fa-solid fa-arrow-up-right-from-square"></i>
+                </button>
+                <button class="btn-icon-auth" onclick="openAuthModal()" title="Sign In / Register"><i class="fa-solid fa-user-lock"></i></button>
+            </div>
+        </div>
+    </header>
+
+    <!-- MAIN APP CONTENT -->
+    <main id="mainApp">
+
+        <!-- HOME SECTION -->
+        <div id="homeSection">
+            <section class="hero-section">
+                <div class="hero-content">
+                    <span class="hero-sub">CENTRALIZED CAR RENTAL SYSTEM</span>
+                    <h1>YOUR JOURNEY.<br>YOUR RULES.<br><span class="highlight">YOUR RENTORA.</span></h1>
+                    <p>A role-based management platform featuring 30 verified vehicles, instant reservation workflows, status tracking, and administrative controls.</p>
+                    <div class="hero-buttons">
+                        <button class="btn-primary" onclick="showSection('explore')">Explore 30 Vehicles <i class="fa-solid fa-arrow-right"></i></button>
+                        <button class="btn-secondary" onclick="toggleDashboard()">Open Dashboard <i class="fa-solid fa-arrow-right"></i></button>
+                    </div>
+                </div>
+                <div class="hero-image">
+                    <img src="https://images.unsplash.com/photo-1555215695-3004980ad54e?auto=format&fit=crop&w=1200&q=80" alt="Yellow Porsche">
+                </div>
+            </section>
+
+            <!-- Featured Cars -->
+            <section class="featured-section">
+                <div class="section-header">
+                    <div>
+                        <span class="section-mono">FEATURED FLEET</span>
+                        <h2>Trending Vehicles</h2>
+                    </div>
+                    <a href="#explore" class="link-arrow" onclick="showSection('explore')">View all 30 vehicles <i class="fa-solid fa-arrow-up-right-from-square"></i></a>
+                </div>
+                <div class="car-grid" id="homeCarGrid"></div>
+            </section>
+
+            <!-- Capabilities Banner -->
+            <section class="difference-banner">
+                <div class="diff-container">
+                    <span class="section-mono light">PLATFORM CAPABILITIES</span>
+                    <h2>Centralized records.<br>Zero spreadsheet errors.</h2>
+                    <div class="diff-grid">
+                        <div class="diff-card">
+                            <i class="fa-solid fa-shield-halved diff-icon"></i>
+                            <h3>Role-Based Access</h3>
+                            <p>Strict separation between customer reservations and admin CRUD control.</p>
+                        </div>
+                        <div class="diff-card">
+                            <i class="fa-solid fa-car-side diff-icon"></i>
+                            <h3>Expanded Fleet (30 Cars)</h3>
+                            <p>Balanced representation across sedans, SUVs, luxury, electric, and sports.</p>
+                        </div>
+                        <div class="diff-card">
+                            <i class="fa-solid fa-clock-rotate-left diff-icon"></i>
+                            <h3>Status Tracking</h3>
+                            <p>Real-time updates on pending, confirmed, and completed bookings.</p>
+                        </div>
+                        <div class="diff-card">
+                            <i class="fa-solid fa-file-invoice-dollar diff-icon"></i>
+                            <h3>Automated Reports</h3>
+                            <p>Instant metric computation for total fleet valuation and monthly revenue.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Testimonials -->
+            <section class="testimonials-section">
+                <span class="section-mono">HAPPY MILES. HAPPY PEOPLE.</span>
+                <h2>Don’t just take our word.</h2>
+                <div class="testimonials-grid">
+                    <div class="testimonial-card">
+                        <div class="stars">★★★★★</div>
+                        <p>“The car was spotless, the pickup was effortless. Our weekend started on the right note.”</p>
+                        <div class="author"><strong>Aisha M.</strong><span>Weekend explorer</span></div>
+                    </div>
+                    <div class="testimonial-card">
+                        <div class="stars">★★★★★</div>
+                        <p>“Finally, a rental platform that fits my plans instead of paper records. Booking was seamless.”</p>
+                        <div class="author"><strong>Rohan K.</strong><span>City commuter</span></div>
+                    </div>
+                    <div class="testimonial-card">
+                        <div class="stars">★★★★★</div>
+                        <p>“A robust system with instant confirmations and transparent pricing. Highly professional.”</p>
+                        <div class="author"><strong>Priya S.</strong><span>Road-trip regular</span></div>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <!-- EXPLORE SECTION (30 CARS) -->
+        <div id="exploreSection" style="display: none;">
+            <section class="fleet-page">
+                <div class="section-header">
+                    <div>
+                        <span class="section-mono">COMPLETE FLEET DATABASE (30 CARS)</span>
+                        <h2>Find your kind of freedom.</h2>
+                    </div>
+                    <div class="search-box">
+                        <i class="fa-solid fa-magnifying-glass"></i>
+                        <input type="text" id="carSearch" placeholder="Search by name, category, fuel..." onkeyup="filterCars()">
+                    </div>
+                </div>
+
+                <div class="filter-pills" id="filterPills">
+                    <button class="pill active" onclick="setFilter('all', this)">All cars (30)</button>
+                    <button class="pill" onclick="setFilter('sedan', this)">Sedan</button>
+                    <button class="pill" onclick="setFilter('suv', this)">SUV</button>
+                    <button class="pill" onclick="setFilter('luxury', this)">Luxury</button>
+                    <button class="pill" onclick="setFilter('electric', this)">Electric</button>
+                    <button class="pill" onclick="setFilter('hatchback', this)">Hatchback</button>
+                    <button class="pill" onclick="setFilter('offroad', this)">Off-road</button>
+                    <button class="pill" onclick="setFilter('sports', this)">Sports</button>
+                    <button class="pill" onclick="setFilter('convertible', this)">Convertible</button>
+                </div>
+
+                <div class="car-grid" id="fullCarGrid"></div>
+            </section>
+        </div>
+
+        <!-- ABOUT SECTION -->
+        <div id="aboutSection" style="display: none;">
+            <section class="inner-page">
+                <span class="section-mono">OUR WAY OF THINKING</span>
+                <h2 class="quote-title">THE JOURNEY<br>BELONGS TO YOU.</h2>
+                <div class="about-hero-frame">
+                    <img src="https://images.unsplash.com/photo-1549399542-7e3f8b79c341?auto=format&fit=crop&w=1600&q=80" alt="Storefront" class="about-store-img">
+                </div>
+                <div class="page-card" style="margin-top: 30px;">
+                    <p style="font-size: 16px; line-height: 1.6; color: #444;">At <strong>Rentora</strong>, we built a centralized car rental management platform to replace disconnected spreadsheets and paper logs with robust workflows, secure user authentication, and real-time operational reporting.</p>
+                </div>
+            </section>
+        </div>
+
+        <!-- OFFERS SECTION -->
+        <div id="offersSection" style="display: none;">
+            <section class="inner-page">
+                <span class="section-mono">EXCLUSIVE DISCOUNTS</span>
+                <h2>Good things ahead.</h2>
+                <div class="offers-grid" style="margin-top: 25px;">
+                    <div class="offer-card yellow">
+                        <span class="offer-code-tag">FIRST10</span>
+                        <h3>A great first impression.</h3>
+                        <p>10% off your first reservation</p>
+                        <button class="btn-corner" onclick="copyCode('FIRST10')"><i class="fa-solid fa-arrow-up-right-from-square"></i></button>
+                    </div>
+                    <div class="offer-card blue">
+                        <span class="offer-code-tag">WEEKEND15</span>
+                        <h3>Make a weekend of it.</h3>
+                        <p>15% off weekend getaways</p>
+                        <button class="btn-corner" onclick="copyCode('WEEKEND15')"><i class="fa-solid fa-arrow-up-right-from-square"></i></button>
+                    </div>
+                    <div class="offer-card white">
+                        <span class="offer-code-tag">LONG20</span>
+                        <h3>Take the scenic route.</h3>
+                        <p>20% off rentals of 7 days or more</p>
+                        <button class="btn-corner" onclick="copyCode('LONG20')"><i class="fa-solid fa-arrow-up-right-from-square"></i></button>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <!-- CONTACT SECTION -->
+        <div id="contactSection" style="display: none;">
+            <section class="inner-page">
+                <span class="section-mono">GET IN TOUCH</span>
+                <h2>We are here to support your journey.</h2>
+                <div class="page-card">
+                    <form onsubmit="handleContactSubmit(event)">
+                        <div class="form-group"><label>Your Name</label><input type="text" placeholder="Lucas Bennett" required></div>
+                        <div class="form-group"><label>Email Address</label><input type="email" placeholder="lucas@example.com" required></div>
+                        <div class="form-group"><label>Message</label><textarea rows="4" placeholder="How can our support team assist you?" required style="width: 100%; padding: 10px; border-radius: 6px; border: 1px solid #E5E0D8;"></textarea></div>
+                        <button type="submit" class="btn-primary">Send Message</button>
+                    </form>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <!-- DASHBOARD VIEW -->
+    <section id="dashboardView" style="display: none;" class="dash-view">
+        <div class="dash-header-wrap">
+            <div>
+                <span class="section-mono">MANAGEMENT PORTAL</span>
+                <h2 id="dashPortalTitle">Admin Control Center</h2>
+            </div>
+            <div class="role-switcher">
+                <button class="role-btn active" id="adminRoleBtn" onclick="switchRole('admin')">Admin View</button>
+                <button class="role-btn" id="custRoleBtn" onclick="switchRole('customer')">Customer View</button>
+            </div>
+        </div>
+
+        <div class="dash-stats">
+            <div class="stat-card"><h3 id="statTotalCars">30</h3><p>Total Fleet Records</p></div>
+            <div class="stat-card"><h3 id="statAvailable">24</h3><p>Available Vehicles</p></div>
+            <div class="stat-card"><h3 id="statBookings">3</h3><p>Active Bookings</p></div>
+            <div class="stat-card"><h3 id="statRevenue">₹1,42,000</h3><p>Monthly Revenue</p></div>
+        </div>
+
+        <!-- ADMIN ONLY: FLEET CRUD TABLE -->
+        <div id="adminCrudSection" class="table-card">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px;">
+                <h3>Fleet CRUD Management (Admin Only)</h3>
+                <button class="btn-primary" onclick="openAddCarModal()" style="padding: 8px 16px; font-size: 13px;"><i class="fa-solid fa-plus"></i> Add New Vehicle</button>
+            </div>
+            <p style="font-size: 13px; color: #666; margin-bottom: 15px;">Only administrators can create, update, or delete vehicles from the system state.</p>
+            <div style="overflow-x: auto;">
+                <table class="dash-table">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Vehicle Name</th>
+                            <th>Category</th>
+                            <th>Daily Rate</th>
+                            <th>Specs</th>
+                            <th>Admin CRUD Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="adminCarTableBody"></tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- RESERVATIONS WORKFLOW TABLE -->
+        <div class="table-card">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px;">
+                <h3 id="bookingTableTitle">Reservation & Status Workflow</h3>
+                <span class="badge confirmed">Live Status Tracking</span>
+            </div>
+            <div style="overflow-x: auto;">
+                <table class="dash-table">
+                    <thead>
+                        <tr>
+                            <th>Booking ID</th>
+                            <th>Customer Name</th>
+                            <th>Vehicle</th>
+                            <th>Dates</th>
+                            <th>Status</th>
+                            <th>Workflow Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="bookingTableBody"></tbody>
+                </table>
+            </div>
+        </div>
+    </section>
+
+    <!-- Booking Modal -->
+    <div id="bookingModal" class="modal">
+        <div class="modal-content">
+            <span class="close-btn" onclick="closeBooking()">&times;</span>
+            <h2>Create Rental Reservation</h2>
+            <p id="modalCarDetail" style="font-weight: 600; color: #555; margin-bottom: 15px;"></p>
+            <form onsubmit="handleBookingSubmit(event)">
+                <div class="form-group"><label>Pickup Date</label><input type="date" id="bookPickup" required></div>
+                <div class="form-group"><label>Return Date</label><input type="date" id="bookReturn" required></div>
+                <div class="form-group"><label>Customer Name</label><input type="text" id="bookCustomer" placeholder="Lucas Bennett" required></div>
+                <button type="submit" class="btn-primary" style="width: 100%; text-align: center; justify-content: center;">Submit Booking Request</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Admin CRUD Modal -->
+    <div id="carCrudModal" class="modal">
+        <div class="modal-content">
+            <span class="close-btn" onclick="closeCarModal()">&times;</span>
+            <h2 id="carModalTitle">Add New Vehicle</h2>
+            <form onsubmit="handleCarCrudSubmit(event)">
+                <input type="hidden" id="editCarId">
+                <div class="form-group"><label>Vehicle Name</label><input type="text" id="crudName" placeholder="e.g. Hyundai Verna" required></div>
+                <div class="form-group">
+                    <label>Category</label>
+                    <select id="crudCategory" style="width: 100%; padding: 10px; border-radius: 6px; border: 1px solid #E5E0D8;">
+                        <option value="sedan">Sedan</option>
+                        <option value="suv">SUV</option>
+                        <option value="luxury">Luxury</option>
+                        <option value="electric">Electric</option>
+                        <option value="hatchback">Hatchback</option>
+                        <option value="offroad">Off-road</option>
+                        <option value="sports">Sports</option>
+                        <option value="convertible">Convertible</option>
+                    </select>
+                </div>
+                <div class="form-group"><label>Daily Rate (e.g. ₹3,500)</label><input type="text" id="crudPrice" placeholder="₹3,500" required></div>
+                <div class="form-group"><label>Image URL</label><input type="url" id="crudImage" placeholder="https://images.unsplash.com/..." required></div>
+                <button type="submit" id="carModalSubmitBtn" class="btn-primary" style="width: 100%; text-align: center; justify-content: center;">Save Vehicle</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Auth Modal -->
+    <div id="authModal" class="modal">
+        <div class="modal-content">
+            <span class="close-btn" onclick="closeAuthModal()">&times;</span>
+            <h2 id="authTitle">User Registration & Login</h2>
+            <form onsubmit="handleAuthSubmit(event)">
+                <div class="form-group" id="nameField" style="display: none;"><label>Full Name</label><input type="text" id="authNameInput" placeholder="Lucas Bennett"></div>
+                <div class="form-group"><label>Email Address</label><input type="email" id="authEmailInput" placeholder="lucas@example.com" required></div>
+                <div class="form-group"><label>Password</label><input type="password" id="authPassInput" placeholder="••••••••" required></div>
+                <div class="form-group">
+                    <label>Select Role</label>
+                    <select id="authRoleSelect" style="width: 100%; padding: 10px; border-radius: 6px; border: 1px solid #E5E0D8;">
+                        <option value="customer">Customer</option>
+                        <option value="admin">Administrator</option>
+                    </select>
+                </div>
+                <button type="submit" id="authSubmitBtn" class="btn-primary" style="width: 100%; text-align: center; justify-content: center; margin-bottom: 15px;">Sign In</button>
+                <p style="text-align: center; font-size: 13px; color: #666;">
+                    <span id="authToggleText">Don't have an account?</span> 
+                    <a href="#" onclick="toggleAuthMode(event)" style="color: var(--accent); font-weight: 700;" id="authToggleLink">Register</a>
+                </p>
+            </form>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-container">
+            <div class="footer-brand">
+                <h2>RENTORA</h2>
+                <p>Centralized Car Rental Management Platform.</p>
+            </div>
+            <div class="footer-columns">
+                <div class="col">
+                    <span class="col-title">SYSTEM MODULES</span>
+                    <a href="#explore" onclick="showSection('explore')">Fleet Database</a>
+                    <a href="#" onclick="toggleDashboard()">Portal Dashboard</a>
+                </div>
+                <div class="col">
+                    <span class="col-title">ADMINISTRATION</span>
+                    <a href="#" onclick="openAuthModal()">Role Authentication</a>
+                    <a href="#contact" onclick="showSection('contact')">System Support</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
